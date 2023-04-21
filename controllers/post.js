@@ -1,9 +1,11 @@
 const Post = require('../models/post');
 const header = require('../header');
 const User = require('./user');
+const successHandle = require('../service/successHandle');
+const customiError = require('../service/customiError');
 
 const posts = {
-
+// get post Info
 async getPosts(req , res, next){
     try{
         if(req.query.timeSort != undefined || req.query.q != undefined){
@@ -24,9 +26,9 @@ async getPosts(req , res, next){
                 "data" : postData
             })
         } else {
-            postData = await Post.find().populate({
+            postData = await Post.find({},{_id : false}).populate({
                 path : "user",
-                select : "name email"
+                select : "name email -_id"
             });
             res.status(200).json({
                 "status" : "success",
@@ -43,7 +45,7 @@ async getPosts(req , res, next){
     }
 },
 
-
+// cereat new Post
 async creatPosts(req, res, next){
     try{
         if(req.body !== undefined){
@@ -54,7 +56,6 @@ async creatPosts(req, res, next){
                 tag : body.tag,
                 type : body.type,
                 content : body.content,
-                image : body.image
             });
             res.set(header)
             res.json({
@@ -71,10 +72,45 @@ async creatPosts(req, res, next){
     }
 },
 
-
- async deletPosts(res, req, next){
+//delete Post
+async deletPosts(res, req, next){
+    const id = res.body.id;
+    const postCheck = await Post.find({
+        "id" : id
+    })
+    if(!postCheck){
+        req.status(500).send({
+            "statuss" : "false",
+            "Error Message" : "ID not found"
+        })
+    } else {
+        await Post.findByIdAndDelete(id);
+        req.status(200).send({
+            "statuss" : "success"
+        })
+    }
     
- }
+},
+
+//edit user Posts
+async editPosts(req, res, next){
+    const { id, content, image, likes, comments } =  req.body;
+    let postCheck = await Post.findOne({"_id" : id});
+    if(!postCheck){
+        return next(customiError("400", "ID not found", next));
+    }
+    if(!content){
+        return next(customiError("400", "內容不得為空", next));
+    }
+    
+    let updatePost = await Post.findByIdAndUpdate(id, {
+        "content" : content,
+        "image" : image,
+        "likes" : likes ? likes : 0,
+        "comments" : comments ? comments : 0
+    })
+    successHandle(res, updatePost);
+}
 }
 
 

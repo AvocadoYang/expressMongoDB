@@ -8,6 +8,11 @@ router.get('/' ,userRouter.getUserInfo);
 
 router.post('/', userRouter.addUserInfo);
 
+router.patch('/', userRouter.editUser);
+
+router.delete('/', userRouter.deleteUser);
+
+
 
 
 module.exports = router;
