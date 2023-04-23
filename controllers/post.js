@@ -10,6 +10,7 @@ async getPosts(req , res, next){
     try{
         if(req.query.timeSort != undefined || req.query.q != undefined){
             const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
+            console.log(req.query, timeSort)
             const query = req.query.q !== undefined ? new RegExp(req.query.q) : {};
             const postData = await Post.find(
                 {$or : 
@@ -20,24 +21,18 @@ async getPosts(req , res, next){
                 path : "user", 
                 select : "name email -_id"
             }).sort(timeSort);
-            res.set(header);
-            res.json({
-                "status" : "success",
-                "data" : postData
-            })
+            console.log(postData);
+            successHandle(res, postData);
         } else {
             postData = await Post.find({},{_id : false}).populate({
                 path : "user",
                 select : "name email -_id"
             });
-            res.status(200).json({
-                "status" : "success",
-                "data" : postData
-            })
+            successHandle(res, postData);
         }
     }catch(error){
         res.set(header);
-        res.status("400")
+        res.status(400)
         res.json({
             "status" : "false",
             "Error message" : error
@@ -57,11 +52,7 @@ async creatPosts(req, res, next){
                 type : body.type,
                 content : body.content,
             });
-            res.set(header)
-            res.json({
-                "status" : "success",
-                newPosts
-            })
+            successHandle(res, newPosts);
         }
     } catch(error){
         console.log(error);

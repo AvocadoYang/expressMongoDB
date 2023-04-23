@@ -6,7 +6,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 })
 
-
 process.on('unhandledRejection', (err, promise) => {
     console.log("AJAX false", promise, "reason : ", err);
 })
+

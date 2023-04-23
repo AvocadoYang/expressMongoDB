@@ -6,6 +6,13 @@ const logger = require('morgan');
 const header = require('./header');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
+// let token = jwt.sign(JSON.stringify({ foo : "bar"}), "shhhhh");
+// console.log(token)
+// jwt.verify(token, 'shhhhh', function(err, decoded) {
+//   console.log(decoded.foo) // bar
+// });
 mongoose.connect("mongodb://127.0.0.1:27017/test").then(()=>{console.log("connect success")});
 require("./service/processError");
 // let postsRouter = require('./routes/postRoute');
