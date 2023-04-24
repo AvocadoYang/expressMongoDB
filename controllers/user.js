@@ -5,14 +5,11 @@ const customiError = require("../service/customiError");
 const validator = require("validator");
 
 const user = {
-
     // get user data
     async getUserInfo(req, res, next){
         const data = await User.find();
         successHandle(res, data);
     },
-
-
     // add user
     async addUserInfo (req, res, next){
         let {name , email, photo, password} = req.body;
@@ -70,8 +67,7 @@ const user = {
         }
         let deleteUser = await User.findByIdAndRemove(id);
         successHandle(res, deleteUser);
-    },
-
+    }
 }
 
 
