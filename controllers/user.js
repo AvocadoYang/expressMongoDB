@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const header = require('../header');
-console.log(User);
 getUserInfo = async (req, res) =>{
     await User.find();
 }

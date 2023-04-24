@@ -1,23 +1,29 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const logger = require('morgan');
 const header = require('./header');
 const mongoose = require('mongoose');
+const axios = require("axios");
+
+const appError = require("./service/appError");
+
 mongoose.connect("mongodb://127.0.0.1:27017/test").then(()=>{console.log("connect success")});
 
 // let postsRouter = require('./routes/postRoute');
 let postRouter = require('./routes/post');
 let usersRouter = require('./routes/users');
 
+// require("./service/processError")
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,7 +37,10 @@ app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(400).send({
+    "status" : "error",
+    "errorMessage" : "無此路由"
+  })
 });
 
 // error handler
@@ -44,5 +53,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

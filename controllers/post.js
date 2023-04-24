@@ -73,8 +73,8 @@ async creatPosts(req, res, next){
 
 
  async deletPosts(res, req, next){
-    
- }
+}
+
 }
 
 
