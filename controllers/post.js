@@ -63,12 +63,6 @@ async creatPosts(req, res, next){
     }
 },
 
-<<<<<<< HEAD
-
- async deletPosts(res, req, next){
-}
-
-=======
 //delete Post
 async deletPosts(res, req, next){
     const id = res.body.id;
@@ -108,7 +102,6 @@ async editPosts(req, res, next){
     })
     successHandle(res, updatePost);
 }
->>>>>>> ca8c5bfd6c602d60ceecbd0267dfef24b864c0f5
 }
 
 
