@@ -14,14 +14,15 @@ const user = {
     async addUserInfo (req, res, next){
         let {name , email, photo, password} = req.body;
         const emailCheck = await User.findOne({"email" : email});
+        console.log(emailCheck);
         if(emailCheck)
-            return customiError("400", "email duplicate", next);
-        
+            return next(customiError("400", "email duplicate", next));
+
         if (!name || !email)
-            return customiError("400", "field error", next);
+            return next(customiError("400", "field error", next));
         
         if(!validator.isEmail(email))
-            return customiError("400", "Email form error", next);
+            return next(customiError("400", "Email form error", next));
         
         let newUser = await User.create({
             "name" : name,
