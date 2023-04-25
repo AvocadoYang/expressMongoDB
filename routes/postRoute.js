@@ -15,7 +15,7 @@ router.get('/', async (req, res) =>{
             "status" :  "success",
             "data" : roomData
         });
-
+        
         
     } catch (error){
         console.log(error);

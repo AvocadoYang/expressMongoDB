@@ -63,10 +63,45 @@ async creatPosts(req, res, next){
     }
 },
 
+//delete Post
+async deletPosts(res, req, next){
+    const id = res.body.id;
+    const postCheck = await Post.find({
+        "id" : id
+    })
+    if(!postCheck){
+        req.status(500).send({
+            "statuss" : "false",
+            "Error Message" : "ID not found"
+        })
+    } else {
+        await Post.findByIdAndDelete(id);
+        req.status(200).send({
+            "statuss" : "success"
+        })
+    }
+    
+},
 
- async deletPosts(res, req, next){
+//edit user Posts
+async editPosts(req, res, next){
+    const { id, content, image, likes, comments } =  req.body;
+    let postCheck = await Post.findOne({"_id" : id});
+    if(!postCheck){
+        return next(customiError("400", "ID not found", next));
+    }
+    if(!content){
+        return next(customiError("400", "內容不得為空", next));
+    }
+    
+    let updatePost = await Post.findByIdAndUpdate(id, {
+        "content" : content,
+        "image" : image,
+        "likes" : likes ? likes : 0,
+        "comments" : comments ? comments : 0
+    })
+    successHandle(res, updatePost);
 }
-
 }
 
 

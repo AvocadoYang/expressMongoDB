@@ -7,14 +7,15 @@ const logger = require('morgan');
 const header = require('./header');
 const mongoose = require('mongoose');
 const axios = require("axios");
-
-const appError = require("./service/appError");
-
 mongoose.connect("mongodb://127.0.0.1:27017/test").then(()=>{console.log("connect success")});
 require("./service/processError");
+// axios.get("https://google.owfow").then((data) => {
+//   console.log(data);
+// })
 // let postsRouter = require('./routes/postRoute');
 let postRouter = require('./routes/post');
 let usersRouter = require('./routes/users');
+const { log } = require('console');
 
 // require("./service/processError")
 
@@ -40,6 +41,8 @@ app.use(function(req, res, next) {
     "status" : "error",
     "errorMessage" : "無此路由"
   })
+  console.log(123)
+  next(createError(404));
 });
 
 // error handler
