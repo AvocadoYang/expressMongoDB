@@ -8,6 +8,6 @@
     // 記錄錯誤下來，等到服務都處理完後，停掉該 process
     console.error('Uncaughted Exception！');
     console.error(err.message);
-    console.error(err.name)
+    console.error(err.name);
     process.exit(1);
   });
