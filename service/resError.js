@@ -1,6 +1,6 @@
-const resErrorProd = (err, res) => {
+const ErrorProd = (err, res) => {
     if(err.isOperational){
-        res.status(err.status).send({
+        res.status(err.statusCode).send({
             message : err.message
         });
     } else {
@@ -13,13 +13,13 @@ const resErrorProd = (err, res) => {
 }
 
 
-const proErrorDev = (err, res) =>{
-    res.status(err.status).send({
+const ErrorDev = (err, res) =>{
+    res.status(err.statusCode).send({
         message : err.message,
         error : err,
         stack : err.stack
     })
 };
 
-module.exports = {resErrorProd, resErrorDev};
+module.exports = {ErrorProd, ErrorDev};
 

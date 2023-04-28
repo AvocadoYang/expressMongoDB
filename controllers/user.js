@@ -14,15 +14,14 @@ const user = {
     async addUserInfo (req, res, next){
         let {name , email, photo, password} = req.body;
         const emailCheck = await User.findOne({"email" : email});
-        console.log(emailCheck);
         if(emailCheck)
-            return next(customiError("400", "email duplicate", next));
+            return next(customiError(400, "email duplicate", next));
 
         if (!name || !email)
-            return next(customiError("400", "field error", next));
+            return next(customiError(400, "field error", next));
         
         if(!validator.isEmail(email))
-            return next(customiError("400", "Email form error", next));
+            return next(customiError(400, "Email form error", next));
         
         let newUser = await User.create({
             "name" : name,
@@ -37,23 +36,21 @@ const user = {
     async editUser(req, res, next){
         let { name, email, id, photo} = req.body;
         const editID = await User.findOne({ _id : id}).catch((error) => {console.log(123);});
-        console.log(editID)
         if(editID == null){
-            return next(customiError("400", "id not found", next));
+            return next(customiError(400, "id not found", next));
         }  
         if(!name || !email){
-            return next(customiError("400", "form error", next));
+            return next(customiError(400, "form error", next));
         }
         if(!validator.isEmail(email)){
-            return next(customiError("400", "email form error",next));
+            return next(customiError(400, "email form error",next));
         }
-        
-        let replaceData = await User.findOneAndReplace(id, {
-            "name" :  name,
-            "email" : email,
-            "id" : id,
-            "photo" : photo
-        })
+        console.log(editID.email)
+            let replaceData = await User.findOneAndReplace({"_id" : id}, {  
+                "name" :  name,
+                "photo" : photo,
+                "email" : email
+            })
         successHandle(res, replaceData);
     },
 
