@@ -42,3 +42,6 @@ let jwtFun = {
 }
 
 module.exports = jwtFun;
+
+
+console.log(123)
