@@ -2,7 +2,7 @@ const Post = require('../models/post');
 const header = require('../header');
 const User = require('./user');
 const successHandle = require('../service/successHandle');
-const customiError = require('../service/customiError');
+const customiError = require('../errorHandle/customiError');
 
 const posts = {
 // get post Info

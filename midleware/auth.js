@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const customiError = require("../service/customiError");
-const handleErrorAsync = require("../service/handleErrorAsync");
+const customiError = require("../errorHandle/customiError");
+const handleErrorAsync = require("../errorHandle/handleErrorAsync");
 const User = require("../models/user");
 
 let jwtFun = {
