@@ -1,16 +1,17 @@
 var express = require('express');
 let userRouter = require('../controllers/user');
+const handleErrorAsync = require('../service/handleErrorAsync');
 var router = express.Router();
 
 
 /* GET users listing. */
-router.get('/' ,userRouter.getUserInfo);
+router.get('/' ,handleErrorAsync(userRouter.getUserInfo));
 
-router.post('/', userRouter.addUserInfo);
+router.post('/', handleErrorAsync(userRouter.addUserInfo));
 
-router.patch('/', userRouter.editUser);
+router.patch('/', handleErrorAsync(userRouter.editUser));
 
-router.delete('/', userRouter.deleteUser);
+router.delete('/', handleErrorAsync(userRouter.deleteUser));
 
 
 
