@@ -53,6 +53,7 @@ const user = {
         jwtFn.generateSendJWT(newUser, 200, res);
         // successHandle(res, newUser);
     },
+
     // 登入
     async logIn (req, res, next) {
         const { email, password} = req.body;
@@ -99,7 +100,7 @@ const user = {
                 "name" :  name,
                 "photo" : photo,
                 "email" : email,
-                "password" : encrypPassword
+                "password" : password
             })
             successHandle(res, replaceData);
         }

@@ -30,14 +30,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/post', postRouter);
 app.use('/user', usersRouter);
-// console.log(process.env); 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(400).send({
     "status" : "error",
     "errorMessage" : "無此路由"
   })
-  console.log(123)
   next(createError(404));
 });
 
