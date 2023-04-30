@@ -7,11 +7,11 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/' ,handleErrorAsync(userRouter.getUserInfo));
 
-router.post('/logIn', handleErrorAsync(userRouter.))
+router.post('/logIn', handleErrorAsync(userRouter.logIn))
 
-router.post('/sigUp', handleErrorAsync(userRouter.signUp));
+router.post('/signUp', handleErrorAsync(userRouter.signUp));
 
-router.patch('/editInfo', handleErrorAsync(userRouter.editUser));
+router.patch('/editInfo', handleErrorAsync(userRouter.editUserInfo));
 
 router.delete('/', handleErrorAsync(userRouter.deleteUser));
 

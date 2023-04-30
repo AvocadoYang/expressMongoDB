@@ -6,20 +6,16 @@ const cors = require('cors');
 const logger = require('morgan');
 const header = require('./header');
 const mongoose = require('mongoose');
-const axios = require("axios");
+
 const resError = require("./errorHandle/resError");
 mongoose.connect("mongodb://127.0.0.1:27017/test").then(()=>{console.log("connect success")});
+require("dotenv").config({path : './config.env'})
 require("./errorHandle/processError");
-// axios.get("https://google.owfow").then((data) => {
-//   console.log(data);
-// })
-// let postsRouter = require('./routes/postRoute');
+
 let postRouter = require('./routes/post');
 let usersRouter = require('./routes/users');
 const { log } = require('console');
 const { resErrorProd } = require('./errorHandle/envError');
-
-// require("./service/processError")
 
 const app = express();
 

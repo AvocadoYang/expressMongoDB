@@ -54,7 +54,7 @@ const user = {
         // successHandle(res, newUser);
     },
     // 登入
-    async signIn (req, res, next) {
+    async logIn (req, res, next) {
         const { email, password} = req.body;
         if(!email || !password){
             return next(customiError(400,"無此帳號或密碼", next));
@@ -69,7 +69,7 @@ const user = {
     },
 
     // edit user Info //有問題要修正
-    async editUser(req, res, next){
+    async editUserInfo(req, res, next){
         let { name, email, photo, password } = req.body;
         const editID = await User.findOne({ _id : req.user.id}).catch((error) => {console.log(123);});
         if(editID == null){
