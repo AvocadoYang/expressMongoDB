@@ -7,9 +7,10 @@ const logger = require('morgan');
 const header = require('./header');
 const mongoose = require('mongoose');
 
-const resError = require("./errorHandle/resError");
-mongoose.connect("mongodb://127.0.0.1:27017/test").then(()=>{console.log("connect success")});
 require("dotenv").config({path : './config.env'})
+const resError = require("./errorHandle/resError");
+const url = `mongodb+srv://avocado:${process.env.MONGODB_PASSWORD}@test.eyfsjjn.mongodb.net/test`;
+mongoose.connect(url).then(()=>{console.log("connect success")}).catch(err => {console.log(err)});
 require("./errorHandle/processError");
 
 let postRouter = require('./routes/post');
